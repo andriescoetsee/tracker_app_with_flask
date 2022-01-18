@@ -10,7 +10,8 @@ I used Google Maps to capture the addresses.
 ### Then I used Postman to test the REST API using Json Web Token Authorisation.
 
 Some the test cases included:
+![image]()
 
-<img src="https://user-images.githubusercontent.com/34986276/149944626-34190789-789c-4934-ad67-d314ec565a75.png" width="80" height="250">
+<img src="https://user-images.githubusercontent.com/34986276/149945176-779898c1-e12a-4d70-aae3-04787ac9670c.png" width="100" height="180">
 
 
