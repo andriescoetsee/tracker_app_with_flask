@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+  <main class="form-signin">
+    <form method="POST">
+      {{form.hidden_tag()}}
+      {% for mess in get_flashed_messages()  %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{mess}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        
+        </div>
+      {% endfor %}
+
+      
+      <h1 class="h3 mb-3 fw-normal">Please register</h1>
+
+      <div class="form-floating">
+        <input type="text" class="form-control" name="username" placeholder="User Name" required>
+        <label for="username">User Name</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" name="password" placeholder="Password" required>
+        <label for="password">Password</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" name="pass_confirm" placeholder="Password Confirm" required>
+        <label for="pass_confirm">Password Confirm</label>
+      </div>
+  
+      <br> 
+  
+      <button class="w-100 btn btn-lg btn-primary" type="submit" name="submit">Register</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>   
+    </form>
+  </main>
+{% endblock %}

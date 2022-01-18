@@ -1,0 +1,10 @@
+#directories to ignore
+__pycache__/
+
+.venv/
+.vscode/
+
+#files in root to be ignored
+/notes.txt
+/config.ini
+

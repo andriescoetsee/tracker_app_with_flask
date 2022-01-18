@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link
+href="https://fonts.googleapis.com/icon?family=Material+Icons"
+rel="stylesheet"
+/>
+
+<div class="card-container">
+    <div class="form-group panel_narrow">
+        <h1 class="h3 mb-3 fw-normal">Job: {{ job_name }}</h1>
+        
+        <div class="form-group">
+            <label class="form-label">Task Name </label>
+            <input type="text" class="form-control text-muted" value="{{ task.order }} - {{ task.name }}" disabled readonly> 
+        </div>
+        <div class="form-group">
+            <label class="form-label">Destination Address </label>
+            <textarea class="form-control  text-muted"   disabled readonly>{{ task.address }}</textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Task Status </label>
+            <input type="text" class="form-control  text-muted"  value="{{ task.status }}" disabled readonly> 
+        </div>
+        <div class="form-group">
+            <label class="form-label">Distance from Destination </label>
+            <input type="text" class="form-control fw-bolder" name="distance" id="distance" disabled readonly> 
+        </div>
+        <div class="form-group">
+            <label class="form-label">Estimated Duration Time </label>
+            <input type="text" class="form-control fw-bolder"  name="duration" id="duration" disabled readonly> 
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="map_wide"  id="map"></div>
+    </div>
+</div> 
+
+<script>
+  "use strict";
+  function initMap() {
+    //initialize services
+    // = new google.maps.Geocoder();
+
+    // const car = {
+    //     text: "\ue62c",
+    //     fontFamily: "Material Icons",
+    //     color: "#ffffff",
+    //     fontSize: "18px",
+    //     }
+    
+    const service = new google.maps.DistanceMatrixService();
+    
+    const label_list = []
+    const text_list = []
+    const loc_list = []
+    
+    {% for i in  len %}
+        label_list[{{i}}] = {
+                                text: "\u{{ marker.label_list[i] }}",
+                                fontFamily: "Material Icons",
+                                color: "#ffffff",
+                                fontSize: "18px",
+                            }
+
+        text_list[{{i}}] =  "{{ marker.text_list[i] }}"
+        loc_list[{{i}}] =  {{ marker.loc_list[i] }}
+    {% endfor %}
+
+    
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 11,
+      center: {{ map_center }},
+      mapTypeControl: false,
+      fullscreenControl: true,
+      zoomControl: true,
+      streetViewControl: true
+    });
+
+    const request = {
+        origins: [{{ marker.current_loc }}],
+        destinations: [{{ marker.current_dest }}],
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false,
+        };
+
+
+    
+    // get distance matrix response
+    service.getDistanceMatrix(request).then((response) => {
+     
+        const origins = response.originAddresses;
+        const destinations = response.destinationAddresses;
+
+        for (var i = 0; i < origins.length; i++) {
+            const results = response.rows[i].elements;
+            
+            for (var j = 0; j < results.length; j++) {
+                const element = results[j];
+                const distance = element.distance.text;
+                const duration = element.duration.text;
+                const distance_val = element.distance.value;
+                const duration_val = element.duration.value;
+                const from = origins[i];
+                const to = destinations[j];
+
+                document.getElementById("distance").value = distance
+                document.getElementById("duration").value = duration
+            
+                }
+        }
+        
+    });
+
+    //put markers on 
+    for (var i = 0; i < loc_list.length; i++) {
+        const marker = new google.maps.Marker({
+            map: map, 
+            position: loc_list[i], 
+            draggable: false,
+            title : text_list[i],
+            label : label_list[i]
+        });
+    }
+
+    // const driver = new google.maps.Marker({
+    //         map: map, 
+    //         position: {{ marker.current_loc }}, 
+    //         draggable: false,
+    //         label : car,
+    //         title : "Driver"
+    //     });
+
+  }
+  </script>
+<script
+src="https://maps.googleapis.com/maps/api/js?key={{config['GOOGLEMAPS_KEY']}}&callback=initMap&region=ZA&v=weekly" async defer>
+</script>
+
+{% endblock content %}
+  
