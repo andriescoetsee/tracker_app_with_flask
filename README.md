@@ -11,7 +11,13 @@ I used Google Maps to capture the addresses.
 
 Some the test cases included:
 
-
-<img src="https://user-images.githubusercontent.com/34986276/149945350-c453824d-dadd-499b-98fb-49336900ad39.png" width="100" height="180">
+* POST SignUp
+* POST Login
+* Post Track Location
+* GET List of Jobs
+* GET Job Tasks
+* GET Worker Location
+* PUT Update Job Status
+* PUT Update Task Status
 
 
