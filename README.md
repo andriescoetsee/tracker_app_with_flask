@@ -11,5 +11,6 @@ I used Google Maps to capture the addresses.
 
 Some the test cases included:
 
-![image](https://user-images.githubusercontent.com/34986276/149944626-34190789-789c-4934-ad67-d314ec565a75.png)
+<img src="https://user-images.githubusercontent.com/34986276/149944626-34190789-789c-4934-ad67-d314ec565a75.png" width="120" height="250">
+
 
