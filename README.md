@@ -9,7 +9,7 @@ I used Google Maps to capture the addresses.
 
 ### Then I used Postman to test the REST API using Json Web Token Authorisation.
 
-Some the test cases included:
+Some of the test cases included:
 
 * POST SignUp
 * POST Login
